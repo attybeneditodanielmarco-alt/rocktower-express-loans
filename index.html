@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rock Tower Express Loans</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
+    }
+    header {
+      background: #111;
+      padding: 1rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #222;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: #fff;
+      padding: 1rem;
+      cursor: pointer;
+    }
+    nav button:hover {
+      background: #333;
+    }
+    .container {
+      padding: 1rem;
+    }
+    .hidden {
+      display: none;
+    }
+    .card {
+      background: #111;
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+    }
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border: none;
+      border-radius: 4px;
+    }
+    button.action {
+      background: #e63946;
+      color: white;
+      border: none;
+      padding: 0.7rem 1rem;
+      margin-top: 0.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button.action:hover {
+      background: #d62839;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Rock Tower Express Loans</h1>
+  </header>
+
+  <nav>
+    <button onclick="showPage('home')">Home</button>
+    <button onclick="showPage('login')">Login</button>
+    <button onclick="showPage('signup')">Sign Up</button>
+    <button onclick="showPage('dashboard')">Dashboard</button>
+  </nav>
+
+  <div class="container">
+    <div id="home" class="page">
+      <div class="card">
+        <h2>Welcome</h2>
+        <p>Fast and reliable loans at your fingertips. Manage your loans easily with Rock Tower Express Loans.</p>
+      </div>
+    </div>
+
+    <div id="login" class="page hidden">
+      <div class="card">
+        <h2>Login</h2>
+        <input type="text" id="loginUser" placeholder="Username"/>
+        <input type="password" id="loginPass" placeholder="Password"/>
+        <button class="action" onclick="login()">Login</button>
+      </div>
+    </div>
+
+    <div id="signup" class="page hidden">
+      <div class="card">
+        <h2>Sign Up</h2>
+        <input type="text" id="signupUser" placeholder="Username"/>
+        <input type="password" id="signupPass" placeholder="Password"/>
+        <button class="action" onclick="signup()">Sign Up</button>
+      </div>
+    </div>
+
+    <div id="dashboard" class="page hidden">
+      <div class="card">
+        <h2>Dashboard</h2>
+        <p id="welcomeMsg">Please log in to see your loans.</p>
+        <div id="loans" class="hidden">
+          <p><strong>Your Loans:</strong></p>
+          <ul>
+            <li>Loan #1 - ₱10,000 - Active</li>
+            <li>Loan #2 - ₱5,000 - Paid</li>
+          </ul>
+          <button class="action" onclick="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentUser = null;
+
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+      document.getElementById(pageId).classList.remove('hidden');
+    }
+
+    function login() {
+      let user = document.getElementById('loginUser').value;
+      let pass = document.getElementById('loginPass').value;
+      if(user && pass) {
+        currentUser = user;
+        document.getElementById('welcomeMsg').innerText = "Welcome, " + currentUser + "!";
+        document.getElementById('loans').classList.remove('hidden');
+        showPage('dashboard');
+      } else {
+        alert("Enter username and password");
+      }
+    }
+
+    function signup() {
+      let user = document.getElementById('signupUser').value;
+      let pass = document.getElementById('signupPass').value;
+      if(user && pass) {
+        alert("Account created! Now log in.");
+        showPage('login');
+      } else {
+        alert("Fill all fields");
+      }
+    }
+
+    function logout() {
+      currentUser = null;
+      document.getElementById('welcomeMsg').innerText = "Please log in to see your loans.";
+      document.getElementById('loans').classList.add('hidden');
+      showPage('home');
+    }
+  </script>
+</body>
+</html>
